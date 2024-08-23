@@ -10,13 +10,17 @@ import {
   History,
   Confirmation,
   New,
-  Logout,
   Receipt,
   Saved,
   DownloadInvoice,
   TransferPage,
   Error404,
+  ForgotPassword,
+  Logout,
 } from './pages';
+import PasswordProvider from './contexts/PasswordProvider';
+import OtpCode from './pages/authentication/OtpCode';
+import ResetPassword from './pages/authentication/ResetPassword';
 
 function App() {
   const { isAuthenticated } = useAuth();
@@ -36,8 +40,12 @@ function App() {
         />
 
         <Route path="/login" element={<Login />} />
-        <Route path="/logout" />
-        <Route path="/forgot-password" element={<Logout />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/forgot-password" element={<PasswordProvider />}>
+          <Route index element={<ForgotPassword />} />
+          <Route path="otp" element={<OtpCode />} />
+          <Route path="reset" element={<ResetPassword />} />
+        </Route>
 
         <Route
           path="/"
